@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --outer: 19 64 176; --frame: 47 143 208; --rim: 10 28 60; --screen: 14 24 38; --panel: 18 40 66;
+  --neon: 61 224 255; --hot: 232 57 47; --gold: 255 193 90; --ink: 224 244 255; --mute: 130 170 200;
+}
+[data-mode='light'] {
+  --outer: 120 175 240; --rim: 12 36 80; --screen: 232 243 255; --panel: 255 255 255;
+  --neon: 0 105 165; --ink: 10 30 60; --mute: 70 100 130;
+}
+[data-hero='miles'] { --frame: 220 48 42; --neon: 255 96 84; --hot: 168 85 247; }
+[data-mode='dark'][data-hero='miles'] { --outer: 16 14 22; --rim: 48 8 12; --screen: 12 10 14; --panel: 30 20 26; }
+[data-mode='light'][data-hero='miles'] { --neon: 190 24 40; --outer: 235 160 160; }
+
+@layer base {
+  body {
+    @apply bg-outer font-body text-lg text-ink antialiased;
+    transition: background-color 0.5s ease;
+    background-image: linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+  :focus-visible { outline: 3px solid rgb(var(--gold)); outline-offset: 2px; }
+  ::selection { background: rgb(var(--hot)); color: #fff; }
+}
+
+@layer components {
+  .pixel-window {
+    @apply rounded-xl border-4 border-frame bg-frame/40;
+    box-shadow: 0 0 0 4px rgb(var(--rim)), 0 12px 0 0 rgb(var(--rim)), 0 0 70px rgb(var(--neon) / 0.25);
+    transition: border-color 0.5s, box-shadow 0.5s;
+  }
+  .screen {
+    @apply bg-screen text-ink;
+    box-shadow: inset 0 0 0 4px rgb(var(--rim)), inset 0 0 50px rgb(0 0 0 / 0.35);
+    transition: background-color 0.5s;
+  }
+  .scanlines::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.035) 0 1px, transparent 1px 3px);
+  }
+  .pixel-panel {
+    @apply rounded-md border-2 border-frame bg-panel/80 p-4;
+    box-shadow: 0 0 0 2px rgb(var(--rim)), 0 0 18px rgb(var(--neon) / 0.12);
+    transition: border-color 0.3s, box-shadow 0.3s, background-color 0.5s;
+  }
+  .pixel-panel:hover { box-shadow: 0 0 0 2px rgb(var(--rim)), 0 0 28px rgb(var(--neon) / 0.35); }
+  .field {
+    @apply w-full rounded-md border-2 border-frame bg-screen px-3 py-2 text-ink placeholder:text-mute;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .field:focus { outline: none; border-color: rgb(var(--neon)); box-shadow: 0 0 0 3px rgb(var(--neon) / 0.35); }
+}
