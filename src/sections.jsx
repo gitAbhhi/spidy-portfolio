@@ -105,9 +105,9 @@ export function About() {
       <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
         <Panel className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
-            <motion.div whileHover={{ rotate: -4, scale: 1.05 }} className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-md border-2 border-neon bg-gradient-to-b from-frame/50 to-screen">
+            <motion.div whileHover={{ rotate: -4, scale: 1.15 }} className="grid h-28 w-28 shrink-0 place-items-center overflow-hidden rounded-md border-2 border-neon bg-gradient-to-b from-frame/50 to-screen">
               {/* <Sprite size={5} /> */}
-              <img src="../Assets/profilephoto.png" alt="" />
+              <img src="../Assets/profilephoto.jpeg" alt="" />
             </motion.div>
             <div>
               <h3 className="font-display text-lg text-neon">{profile.name}</h3>
