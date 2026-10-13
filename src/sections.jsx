@@ -8,6 +8,8 @@ import { Button, Panel, Sprite, Tag, Title, item, stagger } from './ui'
 import { useSettings } from './settings'
 import { achievements, certificates, experience, learning, profile, projects, skills } from './data'
 import { a } from 'framer-motion/client'
+import profilephoto from '../assets/profilephoto.jpeg'
+import spidy from '../assets/spidy.png'
 
 
 const wrap = { variants: stagger, initial: 'hidden', animate: 'show' }
@@ -83,7 +85,7 @@ export function Home({ go }) {
             <motion.div style={{ transformOrigin: 'top center' }} animate={{ rotate: [8, -8, 8] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}>
               {/* <Sprite size={9} />
                */}
-               <img src="../Assets/spidy.png" alt="" />
+               <img src={spidy} alt="" />
             </motion.div>
           </motion.div>
         </div>
@@ -107,7 +109,7 @@ export function About() {
           <div className="flex items-center gap-4">
             <motion.div whileHover={{ rotate: -4, scale: 1.15 }} className="grid h-28 w-28 shrink-0 place-items-center overflow-hidden rounded-md border-2 border-neon bg-gradient-to-b from-frame/50 to-screen">
               {/* <Sprite size={5} /> */}
-              <img src="../Assets/profilephoto.jpeg" alt="" />
+              <img src={profilephoto} alt="" />
             </motion.div>
             <div>
               <h3 className="font-display text-lg text-neon">{profile.name}</h3>
