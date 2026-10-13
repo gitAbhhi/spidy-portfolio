@@ -102,10 +102,10 @@ const Row = ({ icon: Icon, children }) => (
 
 export function About() {
   return (
-    <motion.div {...wrap}>
+    <motion.div {...wrap} className="mx-auto w-full max-w-5xl">
       <Title icon={User}>Character profile</Title>
-      <div className="grid gap-5 lg:grid-cols-[1fr_1.4fr]">
-        <Panel className="flex flex-col gap-4">
+      <div className="grid w-full gap-5 lg:grid-cols-[1fr_1.4fr]">
+        <Panel className="w-full flex flex-col gap-4">
           <div className="flex items-center gap-4">
             <motion.div whileHover={{ rotate: -4, scale: 1.15 }} className="grid h-28 w-28 shrink-0 place-items-center overflow-hidden rounded-md border-2 border-neon bg-gradient-to-b from-frame/50 to-screen">
               {/* <Sprite size={5} /> */}
@@ -124,7 +124,7 @@ export function About() {
           <Button tone="gold" icon={Download} href={profile.resume} download className="self-start">Download resume</Button>
         </Panel>
 
-        <div className="grid gap-5 sm:grid-cols-2">
+        <div className="grid w-full gap-5 sm:grid-cols-2">
           <Panel className="sm:col-span-2">
             <h3 className="mb-3 flex items-center gap-2 font-display text-sm text-gold"><Briefcase size={18} />Experience</h3>
             <ol className="relative ml-2 space-y-4 border-l-2 border-frame pl-5">
@@ -320,10 +320,10 @@ const onSubmit = async (event) => {
 
   const links = [[Mail, profile.email, `mailto:${profile.email}`], [Phone, profile.phone, `tel:${profile.phone}`], [Linkedin, 'LinkedIn', profile.linkedin], [Github, 'GitHub', profile.github]]
   return (
-    <motion.div {...wrap}>
+    <motion.div {...wrap} className="mx-auto w-full max-w-3xl">
       <Title icon={Mail}>Let’s connect</Title>
-      <div className="grid gap-5 md:grid-cols-2">
-        <Panel>
+      <div className="grid w-full gap-5 md:grid-cols-2">
+        <Panel className="w-full">
           <p className="mb-4">I’m always open to new opportunities, collaborations and exciting projects.</p>
           <ul className="space-y-3">
             {links.map(([Icon, label, href]) => (
@@ -335,7 +335,7 @@ const onSubmit = async (event) => {
             ))}
           </ul>
         </Panel>
-        <Panel>
+        <Panel className="w-full">
           <form onSubmit={onSubmit}  method="POST" className="space-y-3">
 
             <label className="block"><span className="mb-1 block text-sm text-mute">Name</span><input type="text"

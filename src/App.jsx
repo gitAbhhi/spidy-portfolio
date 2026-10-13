@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Cpu, FolderOpen, Home as HomeIcon, Mail, Moon, Settings, Sun, User, Volume2, VolumeX, Sparkles } from 'lucide-react'
 import { About, Contact, Home, Projects, Skills } from './sections'
@@ -38,6 +38,8 @@ function NavBtn({ id, label, Icon, mobile, tab, go, play }) {
 export default function App() {
   const { dark, setDark, sound, setSound, miles, setMiles, play } = useSettings()
   const [open, setOpen] = useState(false)
+  const settingsRef = useRef(null)
+  const toggleRef = useRef(null)
   const [tab, setTab] = useState(() => {
     const h = window.location.hash.slice(1)
     return TABS.some((t) => t[0] === h) ? h : 'home'
@@ -47,6 +49,28 @@ export default function App() {
     history.replaceState(null, '', '#' + id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [])
+
+  useEffect(() => {
+    if (!open) return
+
+    const handlePointerDown = (event) => {
+      const clickedInsideToggle = toggleRef.current?.contains(event.target)
+      const clickedInsidePanel = settingsRef.current?.contains(event.target)
+
+      if (!clickedInsideToggle && !clickedInsidePanel) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handlePointerDown)
+    document.addEventListener('touchstart', handlePointerDown, { passive: true })
+
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown)
+      document.removeEventListener('touchstart', handlePointerDown)
+    }
+  }, [open])
+
   const Page = { home: Home, about: About, projects: Projects, skills: Skills, contact: Contact }[tab]
   const idx = TABS.findIndex((t) => t[0] === tab)
 
@@ -68,6 +92,7 @@ export default function App() {
           </nav>
           <div className="relative">
             <motion.button
+              ref={toggleRef}
               whileHover={{ rotate: 20, scale: 1.08 }} whileTap={{ scale: 0.92 }}
               onClick={() => { setOpen(!open); play('toggle') }} aria-label="Theme and settings" aria-expanded={open}
               className="grid h-12 w-12 place-items-center rounded-md border-2 border-rim bg-white text-rim"
@@ -75,6 +100,7 @@ export default function App() {
             <AnimatePresence>
               {open && (
                 <motion.div
+                  ref={settingsRef}
                   initial={{ opacity: 0, y: -10, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -10, scale: 0.9 }}
                   className="pixel-panel absolute right-0 top-full z-40 mt-3 w-64 !bg-screen"
                 >
