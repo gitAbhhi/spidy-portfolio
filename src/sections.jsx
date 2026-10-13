@@ -8,8 +8,8 @@ import { Button, Panel, Sprite, Tag, Title, item, stagger } from './ui'
 import { useSettings } from './settings'
 import { achievements, certificates, experience, learning, profile, projects, skills } from './data'
 import { a } from 'framer-motion/client'
-import profilephoto from '../assets/profilephoto.jpeg'
-import spidy from '../assets/spidy.png'
+import profilephoto from './assets/profilephoto.jpeg'
+import spidy from './assets/spidy.png'
 
 
 const wrap = { variants: stagger, initial: 'hidden', animate: 'show' }
